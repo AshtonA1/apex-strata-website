@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "GbdglfjzM6lx2xaLWBeHD"
+uri = "file://artifacts/apex-strata/src/assets/images/hero-tunnel.png"
+type = "image"
+title = "Underground mine tunnel hero"
+
+[[generated]]
+id = "wfC-hXXSck0TGHjYDpE4Z"
+uri = "file://artifacts/apex-strata/src/assets/images/core-samples.png"
+type = "image"
+title = "Geological core samples"
+
+[[generated]]
+id = "fVE6F2-IQGajXkGqUKS1g"
+uri = "file://artifacts/apex-strata/src/assets/images/open-pit.png"
+type = "image"
+title = "Open pit mine slope"
+
+[[generated]]
+id = "SLMFSzspt3OyScWAhmG5_"
+uri = "file://artifacts/apex-strata/src/assets/images/rock-texture.png"
+type = "image"
+title = "Raw rock texture background"
+
+[[generated]]
+id = "PXAjeF4c-vTT8hv_0hkTN"
+uri = "file://artifacts/apex-strata/src/assets/images/service-core-logging.png"
+type = "image"
+title = "Geologist logging split core samples"
+
+[[generated]]
+id = "thZQWzeFaNyHPcluHMX0i"
+uri = "file://artifacts/apex-strata/src/assets/images/service-rapid-assessment.png"
+type = "image"
+title = "Engineer assessing rock face"
+
+[[generated]]
+id = "2wPmlg66aL9-zvP1theSJ"
+uri = "file://artifacts/apex-strata/src/assets/images/service-ground-control.png"
+type = "image"
+title = "Underground mine tunnel support"
+
+[[generated]]
+id = "x7fVF-Sc3AvXc_JTKsaiP"
+uri = "file://artifacts/apex-strata/src/assets/images/service-risk-framework.png"
+type = "image"
+title = "Risk assessment bowtie board"
+
+[[generated]]
+id = "LkBpvDLUw1TLRCUd4CNgx"
+uri = "file://artifacts/apex-strata/src/assets/images/service-training.png"
+type = "image"
+title = "Mine workers practical training"
+
+[[generated]]
+id = "6qRVNzsAvWk9l2W5ZSce2"
+uri = "file://artifacts/apex-strata/src/assets/images/service-tsf-review.png"
+type = "image"
+title = "Tailings storage facility aerial"

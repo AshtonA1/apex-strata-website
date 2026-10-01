@@ -1,0 +1,124 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: testimonials
+    description: Testimonials operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /testimonials:
+    get:
+      operationId: listTestimonials
+      tags: [testimonials]
+      summary: List approved testimonials
+      description: Returns all approved testimonials
+      responses:
+        "200":
+          description: List of testimonials
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Testimonial"
+    post:
+      operationId: createTestimonial
+      tags: [testimonials]
+      summary: Submit a testimonial
+      description: Submits a new testimonial for review
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTestimonialBody"
+      responses:
+        "201":
+          description: Testimonial submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Testimonial"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    Testimonial:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        company:
+          type: string
+        role:
+          type: string
+          nullable: true
+        content:
+          type: string
+        approved:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - company
+        - content
+        - approved
+        - createdAt
+    CreateTestimonialBody:
+      type: object
+      properties:
+        name:
+          type: string
+        company:
+          type: string
+        role:
+          type: string
+        content:
+          type: string
+      required:
+        - name
+        - company
+        - content
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error

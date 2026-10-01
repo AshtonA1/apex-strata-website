@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Apex Strata Consulting"
+version = "1.0.0"
+id = "artifacts/apex-strata"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22609
+
+[services.development]
+run = "pnpm --filter @workspace/apex-strata run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/apex-strata", "run", "build" ]
+publicDir = "artifacts/apex-strata/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22609"
+BASE_PATH = "/"
