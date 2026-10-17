@@ -17,6 +17,57 @@ type Testimonial = {
   content: string;
 };
 
+type Client = (typeof CLIENTS)[number];
+
+// White tile so logos (drawn for light backgrounds) stay readable on the dark
+// theme. Clients without a logo file render their name as text in the same tile.
+function ClientTile({ client, idx }: { client: Client; idx: number }) {
+  const size = client.featured
+    ? "h-28 w-full sm:w-64 p-4"
+    : client.logo
+      ? "h-24 w-full sm:w-60 p-3"
+      : "h-24 w-[calc(50%-0.5rem)] sm:w-60 p-3";
+
+  const tile = (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: idx * 0.08 }}
+      className={`${size} bg-white flex items-center justify-center shadow-sm transition-transform duration-300 ${
+        client.url ? "hover:-translate-y-1 hover:shadow-lg" : ""
+      }`}
+      data-testid={`client-${client.name.toLowerCase().replace(/\s+/g, "-")}`}
+    >
+      {client.logo ? (
+        <img src={client.logo} alt={client.name} loading="lazy" className="max-h-full max-w-full object-contain" />
+      ) : (
+        <span
+          className={`font-serif font-bold text-slate-800 text-center leading-tight ${
+            client.featured ? "text-xl" : "text-sm"
+          }`}
+        >
+          {client.name}
+        </span>
+      )}
+    </motion.div>
+  );
+
+  if (!client.url) return tile;
+
+  return (
+    <a
+      href={client.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${client.name} (opens their website)`}
+      className={client.featured || client.logo ? "w-full sm:w-auto" : "contents"}
+    >
+      {tile}
+    </a>
+  );
+}
+
 export default function Home() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loadingTestimonials, setLoadingTestimonials] = useState(true);
@@ -201,23 +252,14 @@ export default function Home() {
               Mining Operations Across Zimbabwe
             </motion.h2>
           </motion.div>
-          <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-            {CLIENTS.map((client, idx) => (
-              <motion.span
-                key={client.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: (idx % 4) * 0.08 }}
-                className={`font-serif tracking-wide text-center ${
-                  client.featured
-                    ? "text-xl md:text-2xl font-bold text-foreground"
-                    : "text-base text-muted-foreground"
-                }`}
-                data-testid={`client-${client.name.toLowerCase().replace(/\s+/g, "-")}`}
-              >
-                {client.name}
-              </motion.span>
+          <div className="flex flex-wrap items-stretch justify-center gap-6 mb-6">
+            {CLIENTS.filter((c) => c.featured).map((client, idx) => (
+              <ClientTile key={client.name} client={client} idx={idx} />
+            ))}
+          </div>
+          <div className="flex flex-wrap items-stretch justify-center gap-4">
+            {CLIENTS.filter((c) => !c.featured).map((client, idx) => (
+              <ClientTile key={client.name} client={client} idx={idx} />
             ))}
           </div>
         </div>

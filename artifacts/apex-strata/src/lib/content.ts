@@ -7,6 +7,10 @@ import serviceTraining from "@/assets/images/service-training.png";
 import serviceTsfReview from "@/assets/images/service-tsf-review.png";
 import coreSamples from "@/assets/images/core-samples.png";
 import rockTexture from "@/assets/images/rock-texture.png";
+import logoAlpha from "@/assets/clients/alpha-minerals.png";
+import logoKavango from "@/assets/clients/kavango-resources.png";
+import logoBitumen from "@/assets/clients/bitumen-world-mining.png";
+import logoFreda from "@/assets/clients/freda-rebecca-gold-mine.png";
 
 // ---------------------------------------------------------------------------
 // NAVIGATION
@@ -200,7 +204,7 @@ export const PROJECTS: {
   },
   {
     title: "Heap Leach Pad Geotechnical Designs",
-    client: "Freda Gold Mine, Alpha Minerals, Bitumen World Mining, Stella City Mine, Unicha Gold Mine",
+    client: "Freda Rebecca Gold Mine, Alpha Minerals, Bitumen World Mining, Stella City Mine, Unicha Gold Mine",
     location: "Zimbabwe",
     status: "Completed",
     desc: "Geotechnical designs for heap leach pads across multiple client operations.",
@@ -223,17 +227,26 @@ export const PROJECTS: {
 
 // ---------------------------------------------------------------------------
 // CLIENTS
-// Text wordmark treatment until Ashton supplies real logo files.
 // Bitumen, Kavango and Old Nic are the three Abercon specifically asked to
-// feature/make stand out.
+// feature/make stand out (larger tiles).
+// `logo` is optional - clients without one render as a text tile. To add a
+// logo later: drop the file in src/assets/clients/, import it above, and set
+// `logo`. `url` (optional) makes the tile a link to the client's website.
+// TODO(Ashton): logos still needed for Old Nic Mine, Unicha Gold Mine and
+// Stella City Mine.
 // ---------------------------------------------------------------------------
-export const CLIENTS = [
-  { name: "Bitumen World Mining", featured: true },
-  { name: "Kavango Resources", featured: true },
+export const CLIENTS: {
+  name: string;
+  featured: boolean;
+  logo?: string;
+  url?: string;
+}[] = [
+  { name: "Bitumen World Mining", featured: true, logo: logoBitumen, url: "https://www.bitumenworld.net/" },
+  { name: "Kavango Resources", featured: true, logo: logoKavango, url: "https://www.kavangoresources.com/" },
   { name: "Old Nic Mine", featured: true },
-  { name: "Alpha Minerals", featured: false },
+  { name: "Alpha Minerals", featured: false, logo: logoAlpha, url: "https://www.alphaminerals.com/" },
+  { name: "Freda Rebecca Gold Mine", featured: false, logo: logoFreda, url: "https://mutapagold.com/mine/freda-rebecca-gold-mine/" },
   { name: "Unicha Gold Mine", featured: false },
-  { name: "Freda Gold Mine", featured: false },
   { name: "Stella City Mine", featured: false },
 ];
 
