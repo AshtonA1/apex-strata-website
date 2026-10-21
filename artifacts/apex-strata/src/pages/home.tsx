@@ -4,10 +4,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import heroTunnel from "@/assets/images/hero-tunnel.png";
-import coreSamples from "@/assets/images/core-samples.png";
+import heroPit from "@/assets/images/hero-pit.jpg";
+import coreLog from "@/assets/images/core-log.jpg";
+import Differentiators from "@/components/sections/differentiators";
+import { useSeo } from "@/lib/seo";
 import { fadeInUp, staggerContainer } from "@/lib/motion";
-import { SERVICES, CLIENTS, COMPANY } from "@/lib/content";
+import { SERVICES, CLIENTS, COMPANY, OVERVIEW, MISSION } from "@/lib/content";
 
 type Testimonial = {
   id?: number;
@@ -69,6 +71,10 @@ function ClientTile({ client, idx }: { client: Client; idx: number }) {
 }
 
 export default function Home() {
+  useSeo(
+    null,
+    "Apex Strata Consulting delivers practical, data-driven geotechnical solutions for safer, smarter mining: ground control, slope design, numerical modelling and geotechnical investigations.",
+  );
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loadingTestimonials, setLoadingTestimonials] = useState(true);
   const [testimonialForm, setTestimonialForm] = useState({ name: "", company: "", role: "", content: "" });
@@ -117,18 +123,19 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-end overflow-hidden">
         <motion.div style={{ y }} className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-secondary/80 via-secondary/60 to-background/95 z-10" />
-          <img src={heroTunnel} alt="Underground Mine Tunnel" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/55 to-background/10 z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background to-transparent z-10" />
+          <img src={heroPit} alt="Engineers overlooking a terraced open pit mine at sunset" className="w-full h-full object-cover object-[20%_center]" />
         </motion.div>
 
         <div className="container relative z-10 mx-auto px-4 md:px-8 pb-16 md:pb-24 pt-32">
           <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="max-w-4xl">
-            <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-white leading-[1.1] mb-8">
-              Securing the Ground <br />
-              <span className="text-stone-300">Beneath Your Mine.</span>
+            <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-[1.1] mb-8">
+              Delivering Practical, <span className="whitespace-nowrap">Data-Driven</span> Geotechnical Solutions for{" "}
+              <span className="text-primary">Safer, Smarter Mining</span>
             </motion.h1>
             <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-stone-300 max-w-2xl mb-10 leading-relaxed font-light">
-              {COMPANY.tagline}.
+              Specialized geotechnical engineering for the mining and civil sectors.
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 h-14 rounded-none">
@@ -142,7 +149,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Company Overview */}
       <section className="py-24 md:py-32 bg-background relative">
         <div className="container mx-auto px-4 md:px-8">
           <motion.div
@@ -153,28 +160,30 @@ export default function Home() {
             className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
           >
             <div>
+              <motion.div variants={fadeInUp} className="flex items-center gap-4 mb-4">
+                <div className="h-[2px] w-12 bg-primary"></div>
+                <span className="text-primary font-bold uppercase tracking-widest text-sm">Company Overview</span>
+              </motion.div>
               <motion.h2 variants={fadeInUp} className="text-3xl md:text-5xl font-serif font-bold mb-8 text-foreground">
-                Transforming safety from a high-cost luxury into an accessible necessity.
+                Complex rock mechanics, made practical.
               </motion.h2>
               <motion.p variants={fadeInUp} className="text-lg text-muted-foreground leading-relaxed mb-6">
-                At Apex Strata Consulting, our mission is to empower small- and medium-scale mines with agile, affordable, and actionable rock engineering solutions. We bridge the gap between high-level geotechnical science and practical, everyday mining operations.
+                {OVERVIEW}
               </motion.p>
-              <motion.p variants={fadeInUp} className="text-lg text-muted-foreground leading-relaxed mb-8">
-                Based in Bulawayo, Zimbabwe, we deploy rapidly to deliver exactly what you need: clarity, stability, and peace of mind.
+              <motion.p variants={fadeInUp} className="text-lg text-foreground leading-relaxed mb-8 border-l-2 border-primary pl-5">
+                <span className="font-serif font-bold">Our mission: </span>
+                {MISSION}
               </motion.p>
-              <motion.div variants={fadeInUp} className="flex gap-12 border-t border-border pt-8">
-                <div>
-                  <h4 className="text-4xl font-serif font-bold text-primary mb-2">Agile</h4>
-                  <p className="text-sm text-muted-foreground uppercase tracking-wider">Deployment</p>
-                </div>
-                <div>
-                  <h4 className="text-4xl font-serif font-bold text-primary mb-2">Precise</h4>
-                  <p className="text-sm text-muted-foreground uppercase tracking-wider">Engineering</p>
-                </div>
+              <motion.div variants={fadeInUp}>
+                <Button asChild variant="outline" className="rounded-none">
+                  <Link href="/about" data-testid="home-about-link">
+                    Vision, Mission & Values <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </Button>
               </motion.div>
             </div>
-            <motion.div variants={fadeInUp} className="relative h-[600px]">
-              <img src={coreSamples} alt="Geological Core Samples" className="w-full h-full object-cover shadow-2xl" />
+            <motion.div variants={fadeInUp} className="relative">
+              <img src={coreLog} alt="Drill core in a core tray beside a core log sheet on a mine site" className="w-full h-full object-cover shadow-2xl" />
               <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-secondary z-[-1]"></div>
               <div className="absolute -top-6 -right-6 w-48 h-48 border-2 border-primary z-[-1]"></div>
             </motion.div>
@@ -182,8 +191,10 @@ export default function Home() {
         </div>
       </section>
 
+      <Differentiators />
+
       {/* Services Preview */}
-      <section className="py-24 md:py-32 bg-secondary text-secondary-foreground relative">
+      <section className="py-24 md:py-32 bg-background text-foreground relative border-t border-border">
         <div className="container relative z-10 mx-auto px-4 md:px-8">
           <motion.div
             initial="hidden"
@@ -387,7 +398,7 @@ export default function Home() {
       <section className="py-24 md:py-32 bg-secondary text-secondary-foreground">
         <div className="container mx-auto px-4 md:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }}>
-            <h2 className="text-4xl md:text-6xl font-serif font-bold mb-6 text-white">Ready to secure your operations?</h2>
+            <h2 className="text-4xl md:text-6xl font-serif font-bold mb-6 text-white">Ready to make your operation safer and smarter?</h2>
             <p className="text-xl text-secondary-foreground/80 mb-10 max-w-lg mx-auto leading-relaxed">
               Contact us today for a rapid assessment or to discuss your specific ground control challenges.
             </p>

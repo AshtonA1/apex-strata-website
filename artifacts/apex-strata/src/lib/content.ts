@@ -1,4 +1,4 @@
-import { Compass, Hammer, TrendingUp, ShieldCheck, BookOpen, AlertTriangle, Layers, FileSearch } from "lucide-react";
+import { Compass, Hammer, TrendingUp, ShieldCheck, BookOpen, AlertTriangle, Layers, FileSearch, Cpu, Zap, FileCheck2, Users, Award, Scale } from "lucide-react";
 import serviceCoreLogging from "@/assets/images/service-core-logging.png";
 import serviceRapidAssessment from "@/assets/images/service-rapid-assessment.png";
 import serviceGroundControl from "@/assets/images/service-ground-control.png";
@@ -10,7 +10,6 @@ import rockTexture from "@/assets/images/rock-texture.png";
 import logoAlpha from "@/assets/clients/alpha-minerals.png";
 import logoKavango from "@/assets/clients/kavango-resources.png";
 import logoBitumen from "@/assets/clients/bitumen-world-mining.png";
-import logoFreda from "@/assets/clients/freda-rebecca-gold-mine.png";
 
 // ---------------------------------------------------------------------------
 // NAVIGATION
@@ -19,7 +18,7 @@ export const NAV_LINKS = [
   { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
   { label: "Projects", path: "/projects" },
-  { label: "Team", path: "/team" },
+  { label: "About", path: "/about" },
   { label: "Contact", path: "/contact" },
 ];
 
@@ -149,20 +148,32 @@ export const SERVICES = [
 // Overview" slide. All listed as Completed since the deck doesn't specify
 // otherwise - change `status` to "Ongoing" or "Pending" for live work, and
 // add new entries to this array as they come up (this is the data source
-// for the Projects page Abercon asked for).
+// for the Projects page).
 // ---------------------------------------------------------------------------
 export type ProjectStatus = "Completed" | "Ongoing" | "Pending";
 
 export const PROJECTS: {
   title: string;
   client: string;
+  /** Names matching entries in CLIENTS (logo + link come from there). Anything
+   *  not in CLIENTS renders as a text chip. "Confidential Client" renders with a lock. */
+  clients: string[];
   location: string;
   status: ProjectStatus;
   desc: string;
 }[] = [
   {
+    title: "Geotechnical Design for Five Open Pits",
+    client: "Royal Family Mine (Podhill)",
+    clients: ["Royal Family Mine"],
+    location: "Filabusi, Zimbabwe",
+    status: "Completed",
+    desc: "Geotechnical design for a five-pit open pit development at Royal Family Mine.",
+  },
+  {
     title: "Open Pit Slope Design",
     client: "Alpha Minerals",
+    clients: ["Alpha Minerals"],
     location: "Willies Luck, Zimbabwe",
     status: "Completed",
     desc: "Slope design for an open pit operation, balancing stripping ratio against overall slope stability.",
@@ -170,6 +181,7 @@ export const PROJECTS: {
   {
     title: "Minewide Underground Geotechnical Assessment",
     client: "Old Nic Mine (Retinue Stars Investments)",
+    clients: ["Old Nic Mine"],
     location: "Bulawayo, Zimbabwe",
     status: "Completed",
     desc: "Comprehensive minewide assessment of underground workings, identifying stability hazards and ground support priorities.",
@@ -177,6 +189,7 @@ export const PROJECTS: {
   {
     title: "Main Vertical Shaft Geotechnical Stability Analysis",
     client: "Kavango Zimbabwe Holdings (Pvt) Ltd",
+    clients: ["Kavango Resources"],
     location: "Filabusi, Zimbabwe",
     status: "Completed",
     desc: "Stability analysis for the main vertical shaft, informing support design and operational risk controls.",
@@ -184,6 +197,7 @@ export const PROJECTS: {
   {
     title: "Open Pit Slope Design",
     client: "Bitumen World Mining",
+    clients: ["Bitumen World Mining"],
     location: "Zimbabwe",
     status: "Completed",
     desc: "Slope design and kinematic analysis for open pit development.",
@@ -191,6 +205,7 @@ export const PROJECTS: {
   {
     title: "Open Pit Designs",
     client: "Unicha Gold Mine (Turnstone Resources & Sandfinder Investments)",
+    clients: ["Unicha Gold Mine"],
     location: "Zimbabwe",
     status: "Completed",
     desc: "Open pit design covering bench geometry and overall slope angles for safe, productive extraction.",
@@ -198,13 +213,15 @@ export const PROJECTS: {
   {
     title: "Tailings Storage Facility (TSF) Review",
     client: "Kavango Resources (Pvt) Ltd",
+    clients: ["Kavango Resources"],
     location: "Filabusi, Zimbabwe",
     status: "Completed",
     desc: "Independent geotechnical review of TSF stability and seepage conditions against international standards.",
   },
   {
     title: "Heap Leach Pad Geotechnical Designs",
-    client: "Freda Rebecca Gold Mine, Alpha Minerals, Bitumen World Mining, Stella City Mine, Unicha Gold Mine",
+    client: "Royal Family Mine, Alpha Minerals, Bitumen World Mining, Stella City Mine, Unicha Gold Mine, Turnstone Resources, Sandfinder Investments",
+    clients: ["Royal Family Mine", "Alpha Minerals", "Bitumen World Mining", "Stella City Mine", "Unicha Gold Mine", "Turnstone Resources", "Sandfinder Investments"],
     location: "Zimbabwe",
     status: "Completed",
     desc: "Geotechnical designs for heap leach pads across multiple client operations.",
@@ -212,6 +229,7 @@ export const PROJECTS: {
   {
     title: "Back Analysis of Slope Failure",
     client: "Confidential Client",
+    clients: ["Confidential Client"],
     location: "Zimbabwe",
     status: "Completed",
     desc: "Back analysis of a slope failure caused by tensile crack formation and subsidence, informing remedial design.",
@@ -219,6 +237,7 @@ export const PROJECTS: {
   {
     title: "Ground Control Management Plan & Code of Practice",
     client: "Confidential Client",
+    clients: ["Confidential Client"],
     location: "Zimbabwe",
     status: "Completed",
     desc: "Design of a Code of Practice and Ground Control Management Plan from the ground up.",
@@ -227,13 +246,13 @@ export const PROJECTS: {
 
 // ---------------------------------------------------------------------------
 // CLIENTS
-// Bitumen, Kavango and Old Nic are the three Abercon specifically asked to
-// feature/make stand out (larger tiles).
+// Bitumen, Kavango and Old Nic are the three the client asked to feature/make
+// stand out (larger tiles).
 // `logo` is optional - clients without one render as a text tile. To add a
 // logo later: drop the file in src/assets/clients/, import it above, and set
 // `logo`. `url` (optional) makes the tile a link to the client's website.
-// TODO(Ashton): logos still needed for Old Nic Mine, Unicha Gold Mine and
-// Stella City Mine.
+// TODO(Ashton): logos still needed for Old Nic Mine, Unicha Gold Mine, Stella
+// City Mine, Royal Family Mine and Turnstone Resources.
 // ---------------------------------------------------------------------------
 export const CLIENTS: {
   name: string;
@@ -245,49 +264,80 @@ export const CLIENTS: {
   { name: "Kavango Resources", featured: true, logo: logoKavango, url: "https://www.kavangoresources.com/" },
   { name: "Old Nic Mine", featured: true },
   { name: "Alpha Minerals", featured: false, logo: logoAlpha, url: "https://www.alphaminerals.com/" },
-  { name: "Freda Rebecca Gold Mine", featured: false, logo: logoFreda, url: "https://mutapagold.com/mine/freda-rebecca-gold-mine/" },
   { name: "Unicha Gold Mine", featured: false },
   { name: "Stella City Mine", featured: false },
-];
-
-// ---------------------------------------------------------------------------
-// TEAM
-// Abercon & Freddy were already on the site; Albert Ngulube added from the
-// portfolio deck. Deck lists company-domain emails (@apexstrataconsulting.com)
-// where the site previously had personal @gmail.com addresses - using the
-// company domain here. Flag to Ashton: confirm these inboxes are live before
-// publishing.
-// ---------------------------------------------------------------------------
-export const TEAM = [
-  {
-    name: "Abercon Mbedzi",
-    role: "Principal Geotechnical Engineer",
-    bio: "MSc Geotechnical Engineering (University of Cape Town), BSc Mining & Geology (University of Venda). Chamber of Mines South Africa Strata Control Certificate. Specialist in advanced numerical modeling, slope stability analysis, and geotechnical domain characterization.",
-    email: "aberconmbedzi@apexstrataconsulting.com",
-    phone: "+263 775 278 800",
-  },
-  {
-    name: "Freddy Chikwiri",
-    role: "Principal Geotechnical Engineer",
-    bio: "MSc Mining Engineering, Rock Mechanics (Camborne School of Mines, UK), BSc Geology (Wits University). Chamber of Mines Strata Control Certificate. Specialist in ground control design and risk management for mining operations.",
-    email: "freddychikwiri@apexstrataconsulting.com",
-    phone: "+263 782 472 100",
-  },
-  {
-    name: "Albert Ngulube",
-    role: "Principal Geologist",
-    bio: "Honours Degree in Geology, Postgraduate Diploma in Rock Mechanics, MSc Geophysics (ongoing). Expertise in exploration (greenfield and brownfield), mine geology, mine planning and design, and rock mechanics.",
-    email: "thembinkosingulube21@gmail.com",
-    phone: "+263 775 302 440",
-  },
+  { name: "Royal Family Mine", featured: false },
+  { name: "Turnstone Resources", featured: false },
 ];
 
 // ---------------------------------------------------------------------------
 // COMPANY
+// Deliberately NO street address and NO personal names or personal email on the
+// public site (client request). Anything placed in this file ships inside the
+// public JavaScript bundle, so don't add them back here, even if a page hides them.
 // ---------------------------------------------------------------------------
 export const COMPANY = {
   name: "Apex Strata Consulting",
   tagline: "Delivering Practical, Data-Driven Geotechnical Solutions for Safer, Smarter Mining",
-  address: "108 Chelmsford Road, Matshemhlophe, Bulawayo, Zimbabwe",
-  primaryEmail: "aberconmbedzi@apexstrataconsulting.com",
+  primaryEmail: "info@apexstrataconsulting.co.zw",
 };
+
+// ---------------------------------------------------------------------------
+// ABOUT: wording taken from the Apex Strata Consulting Portfolio deck
+// (Company Overview, Mission & Vision, Core Values, Key Differentiators).
+// ---------------------------------------------------------------------------
+export const OVERVIEW =
+  "Apex Strata Consulting is a specialized geotechnical engineering consultancy serving the mining and civil sectors. As a lean, agile firm, we bridge the gap between complex rock mechanics theory and practical field solutions. Our focus on small to medium-scale mining operations enables us to deliver tailored expertise that enhances safety, ensures regulatory compliance, and drives productivity improvements.";
+
+export const MISSION =
+  "Empower small- and medium-scale mines with agile, affordable, and actionable rock engineering solutions that enhance safety, compliance, and operational productivity.";
+
+export const VISION =
+  "To be Africa's leading provider of innovative, practical, and sustainable geotechnical engineering solutions driving operational excellence and long-term stability.";
+
+export const COMMITMENT = {
+  title: "Our Commitment",
+  text: "We bridge complex rock mechanics and geotechnical engineering with practical field solutions, delivering data-driven assessments that translate into real-world safety and performance improvements.",
+};
+
+export const FOCUS = {
+  title: "Our Focus",
+  text: "Specialized expertise for small- to medium-scale mining operations, ensuring accessible geotechnical excellence without compromising on quality or rigorous engineering standards.",
+};
+
+export const VALUES = [
+  { title: "Customer Focus", icon: Users, desc: "Clear, practical, tailored recommendations that translate complex geotechnical data into actionable solutions for your operations." },
+  { title: "Agility", icon: Zap, desc: "Streamlined operations enabling rapid deployment, quick turnaround times, and flexible service delivery to meet your project timelines." },
+  { title: "Excellence", icon: Award, desc: "Rigorous engineering standards and advanced numerical modeling ensuring safety, structural integrity, and long-term stability." },
+  { title: "Integrity", icon: Scale, desc: "Transparent, ethical, data-driven assessments with fair pricing. We deliver honest evaluations you can trust." },
+];
+
+export const DIFFERENTIATORS: {
+  title: string;
+  icon: typeof Cpu;
+  desc: string;
+  /** Optional chips shown under the description. */
+  tags?: string[];
+}[] = [
+  {
+    title: "Technical Prowess",
+    icon: Cpu,
+    desc: "Advanced numerical modeling for precise geotechnical analysis and predictive simulations.",
+    tags: ["Rocscience Suite (RS2, RS3, Dips, Unwedge, Examine2D)", "FLAC3D", "MAP3D", "FlacSlope"],
+  },
+  {
+    title: "Agile Operations",
+    icon: Zap,
+    desc: "Lean organizational structure enabling rapid mobilization, quick turnaround times, and flexible service delivery to meet project demands.",
+  },
+  {
+    title: "Client-Centric Deliverables",
+    icon: FileCheck2,
+    desc: "From detailed technical analysis to practical operational guides, we tailor our outputs to meet specific client needs and operational contexts.",
+  },
+  {
+    title: "Comprehensive Expertise",
+    icon: Layers,
+    desc: "Full-spectrum geotechnical solutions for both surface and underground operations, backed by independent and impartial assessments.",
+  },
+];

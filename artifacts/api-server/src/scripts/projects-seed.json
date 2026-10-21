@@ -1,0 +1,108 @@
+[
+  {
+    "title": "Geotechnical Design for Five Open Pits",
+    "client": "Royal Family Mine (Podhill)",
+    "clients": [
+      "Royal Family Mine"
+    ],
+    "location": "Filabusi, Zimbabwe",
+    "status": "Completed",
+    "description": "Geotechnical design for a five-pit open pit development at Royal Family Mine."
+  },
+  {
+    "title": "Open Pit Slope Design",
+    "client": "Alpha Minerals",
+    "clients": [
+      "Alpha Minerals"
+    ],
+    "location": "Willies Luck, Zimbabwe",
+    "status": "Completed",
+    "description": "Slope design for an open pit operation, balancing stripping ratio against overall slope stability."
+  },
+  {
+    "title": "Minewide Underground Geotechnical Assessment",
+    "client": "Old Nic Mine (Retinue Stars Investments)",
+    "clients": [
+      "Old Nic Mine"
+    ],
+    "location": "Bulawayo, Zimbabwe",
+    "status": "Completed",
+    "description": "Comprehensive minewide assessment of underground workings, identifying stability hazards and ground support priorities."
+  },
+  {
+    "title": "Main Vertical Shaft Geotechnical Stability Analysis",
+    "client": "Kavango Zimbabwe Holdings (Pvt) Ltd",
+    "clients": [
+      "Kavango Resources"
+    ],
+    "location": "Filabusi, Zimbabwe",
+    "status": "Completed",
+    "description": "Stability analysis for the main vertical shaft, informing support design and operational risk controls."
+  },
+  {
+    "title": "Open Pit Slope Design",
+    "client": "Bitumen World Mining",
+    "clients": [
+      "Bitumen World Mining"
+    ],
+    "location": "Zimbabwe",
+    "status": "Completed",
+    "description": "Slope design and kinematic analysis for open pit development."
+  },
+  {
+    "title": "Open Pit Designs",
+    "client": "Unicha Gold Mine (Turnstone Resources & Sandfinder Investments)",
+    "clients": [
+      "Unicha Gold Mine"
+    ],
+    "location": "Zimbabwe",
+    "status": "Completed",
+    "description": "Open pit design covering bench geometry and overall slope angles for safe, productive extraction."
+  },
+  {
+    "title": "Tailings Storage Facility (TSF) Review",
+    "client": "Kavango Resources (Pvt) Ltd",
+    "clients": [
+      "Kavango Resources"
+    ],
+    "location": "Filabusi, Zimbabwe",
+    "status": "Completed",
+    "description": "Independent geotechnical review of TSF stability and seepage conditions against international standards."
+  },
+  {
+    "title": "Heap Leach Pad Geotechnical Designs",
+    "client": "Royal Family Mine, Alpha Minerals, Bitumen World Mining, Stella City Mine, Unicha Gold Mine, Turnstone Resources, Sandfinder Investments",
+    "clients": [
+      "Royal Family Mine",
+      "Alpha Minerals",
+      "Bitumen World Mining",
+      "Stella City Mine",
+      "Unicha Gold Mine",
+      "Turnstone Resources",
+      "Sandfinder Investments"
+    ],
+    "location": "Zimbabwe",
+    "status": "Completed",
+    "description": "Geotechnical designs for heap leach pads across multiple client operations."
+  },
+  {
+    "title": "Back Analysis of Slope Failure",
+    "client": "Confidential Client",
+    "clients": [
+      "Confidential Client"
+    ],
+    "location": "Zimbabwe",
+    "status": "Completed",
+    "description": "Back analysis of a slope failure caused by tensile crack formation and subsidence, informing remedial design."
+  },
+  {
+    "title": "Ground Control Management Plan & Code of Practice",
+    "client": "Confidential Client",
+    "clients": [
+      "Confidential Client"
+    ],
+    "location": "Zimbabwe",
+    "status": "Completed",
+    "description": "Design of a Code of Practice and Ground Control Management Plan from the ground up."
+  }
+]

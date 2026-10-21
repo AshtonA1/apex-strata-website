@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NAV_LINKS } from "@/lib/content";
+import Logo from "@/components/layout/logo";
 
 export default function Nav() {
   const [location] = useLocation();
@@ -38,13 +39,8 @@ export default function Nav() {
         }`}
       >
         <div className="container mx-auto px-4 md:px-8 h-full flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 cursor-pointer z-50" data-testid="nav-logo">
-            <div className="w-8 h-8 bg-primary flex items-center justify-center text-primary-foreground font-bold font-serif text-xl leading-none">
-              A
-            </div>
-            <span className={`font-serif font-bold text-xl tracking-wide ${solid ? "text-foreground" : "text-white"}`}>
-              APEX STRATA
-            </span>
+          <Link href="/" className="cursor-pointer z-50" data-testid="nav-logo" aria-label="Apex Strata home">
+            <Logo size="md" textClassName={solid ? "text-foreground" : "text-white"} />
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

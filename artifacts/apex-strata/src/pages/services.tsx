@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { useSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +10,7 @@ import PageHero from "@/components/layout/page-hero";
 import { SERVICES } from "@/lib/content";
 
 export default function Services() {
+  useSeo("Services", "Geotechnical investigations and core logging, ground control recommendations, numerical modelling, TSF and heap leach designs, audits and on-site training for mining operations.");
   const [activeService, setActiveService] = useState<number | null>(null);
 
   return (
