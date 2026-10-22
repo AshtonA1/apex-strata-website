@@ -10,7 +10,7 @@ import PageHero from "@/components/layout/page-hero";
 import { SERVICES } from "@/lib/content";
 
 export default function Services() {
-  useSeo("Services", "Geotechnical investigations and core logging, ground control recommendations, numerical modelling, TSF and heap leach designs, audits and on-site training for mining operations.");
+  useSeo("services");
   const [activeService, setActiveService] = useState<number | null>(null);
 
   return (

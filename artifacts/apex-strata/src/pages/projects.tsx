@@ -58,7 +58,7 @@ function ClientBand({ names }: { names: string[] }) {
 type PublicProject = (typeof PROJECTS)[number];
 
 export default function Projects() {
-  useSeo("Projects", "Selected geotechnical projects across Zimbabwe's mining sector: open pit design, heap leach pads, TSF review, shaft stability and ground control.");
+  useSeo("projects");
   // The admin portal edits projects in the database. Start with the built-in list so the page is
   // never blank, swap in the live list once it loads, and keep the built-in list if the API is down.
   const [projects, setProjects] = useState<PublicProject[]>(PROJECTS);

@@ -7,7 +7,7 @@ import { COMPANY } from "@/lib/content";
 import { useSeo } from "@/lib/seo";
 
 export default function Contact() {
-  useSeo("Contact", "Contact Apex Strata Consulting for geotechnical investigations, ground control, slope design and numerical modelling for your mining operation.");
+  useSeo("contact");
   const [form, setForm] = useState({ name: "", company: "", email: "", message: "", website: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");

@@ -71,10 +71,7 @@ function ClientTile({ client, idx }: { client: Client; idx: number }) {
 }
 
 export default function Home() {
-  useSeo(
-    null,
-    "Apex Strata Consulting delivers practical, data-driven geotechnical solutions for safer, smarter mining: ground control, slope design, numerical modelling and geotechnical investigations.",
-  );
+  useSeo("home");
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loadingTestimonials, setLoadingTestimonials] = useState(true);
   const [testimonialForm, setTestimonialForm] = useState({ name: "", company: "", role: "", content: "" });

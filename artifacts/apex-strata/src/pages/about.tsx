@@ -5,20 +5,18 @@ import { Button } from "@/components/ui/button";
 import PageHero from "@/components/layout/page-hero";
 import Differentiators from "@/components/sections/differentiators";
 import coreLog from "@/assets/images/core-log.jpg";
+import tunnel from "@/assets/images/tunnel-cutout.webp";
 import { COMMITMENT, FOCUS, MISSION, OVERVIEW, VALUES, VISION } from "@/lib/content";
 import { useSeo } from "@/lib/seo";
 
 const fade = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" } };
 
 export default function About() {
-  useSeo(
-    "About Us",
-    "Apex Strata Consulting is a specialized geotechnical engineering consultancy for the mining and civil sectors: our mission, vision, core values and what sets us apart.",
-  );
+  useSeo("about");
 
   return (
     <div>
-      <PageHero eyebrow="About Us" title="Practical rock engineering, grounded in data." subtitle="Who we are, what we stand for, and what sets us apart." />
+      <PageHero eyebrow="About Us" title="Practical rock engineering, grounded in data." subtitle="Who we are, what we stand for, and what sets us apart." image={tunnel} imageAlt="Underground mine tunnel with rail line and support" />
 
       {/* Company Overview */}
       <section className="py-24 md:py-32 bg-background">
