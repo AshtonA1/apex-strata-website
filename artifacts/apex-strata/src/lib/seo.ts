@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 
 export const SITE_NAME = "Apex Strata Consulting";
@@ -8,7 +9,7 @@ export const PAGES = {
     path: "/",
     title: null as string | null,
     description:
-      "Apex Strata Consulting delivers practical, data-driven geotechnical solutions for safer, smarter mining: ground control, slope design, numerical modelling and geotechnical investigations.",
+      "Apex Strata Consulting is a Zimbabwe-based geotechnical engineering consultancy serving the mining and civil sectors. Our services include geotechnical investigations, core logging, ground control, open-pit slope design, numerical modelling and tailings facility reviews.",
   },
   services: {
     path: "/services",
@@ -40,19 +41,26 @@ export type PageKey = keyof typeof PAGES;
 
 export const fullTitle = (key: PageKey) => {
   const t = PAGES[key].title;
-  return t ? `${t} | ${SITE_NAME}` : `${SITE_NAME} | Geotechnical Engineering for Mining`;
+  return t
+    ? `${t} | ${SITE_NAME}`
+    : `${SITE_NAME} | Geotechnical Engineering for Mining`;
 };
 
 /** Sets the tab title and meta description for a page (kept in sync with the pre-rendered HTML). */
 export function useSeo(key: PageKey) {
   useEffect(() => {
     document.title = fullTitle(key);
-    let meta = document.querySelector<HTMLMetaElement>('meta[name="description"]');
+
+    let meta = document.querySelector<HTMLMetaElement>(
+      'meta[name="description"]'
+    );
+
     if (!meta) {
       meta = document.createElement("meta");
       meta.name = "description";
       document.head.appendChild(meta);
     }
+
     meta.content = PAGES[key].description;
   }, [key]);
 }
