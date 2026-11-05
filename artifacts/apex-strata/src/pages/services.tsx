@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
@@ -5,7 +6,15 @@ import { useSeo } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import PageHero from "@/components/layout/page-hero";
 import { SERVICES } from "@/lib/content";
 
@@ -16,24 +25,68 @@ export default function Services() {
   return (
     <div>
       <PageHero
-        eyebrow="Expertise"
-        title="Our Services"
-        subtitle="From initial investigations to rapid assessments and comprehensive ground control frameworks."
+        eyebrow="Geotechnical & Mining Expertise"
+        title="Geotechnical Engineering & Mining Consultancy Services"
+        subtitle="Specialist geotechnical investigations, ground control, slope stability analysis and numerical modelling for mining and civil engineering projects in Zimbabwe."
       />
 
-      <section className="py-24 md:py-32 bg-secondary text-secondary-foreground relative">
+      <section
+        className="py-24 md:py-32 bg-secondary text-secondary-foreground relative"
+        aria-labelledby="services-heading"
+      >
         <div className="container relative z-10 mx-auto px-4 md:px-8">
+
+          {/* Services introduction */}
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2
+              id="services-heading"
+              className="text-3xl md:text-4xl font-serif font-bold text-white mb-6"
+            >
+              Geotechnical Engineering Services for Mining Operations
+            </h2>
+
+            <p className="text-secondary-foreground/70 leading-relaxed text-lg">
+              Apex Strata Consulting provides practical, data-driven
+              geotechnical engineering solutions to the mining and civil
+              sectors. Our services cover the full range of ground
+              engineering challenges, from initial site investigations
+              and rock mass assessments to numerical modelling, slope
+              stability design and ground control risk management.
+            </p>
+
+            <p className="text-secondary-foreground/70 leading-relaxed mt-4">
+              We work with mining operations to understand ground
+              conditions, assess geotechnical risks and develop
+              site-specific engineering recommendations that support
+              safer and more informed operational decisions.
+            </p>
+          </div>
+
+          {/* Service cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {SERVICES.map((service, idx) => {
               const Icon = service.icon;
+
               return (
-                <Dialog key={idx} open={activeService === idx} onOpenChange={(open) => !open && setActiveService(null)}>
+                <Dialog
+                  key={idx}
+                  open={activeService === idx}
+                  onOpenChange={(open) =>
+                    !open && setActiveService(null)
+                  }
+                >
                   <DialogTrigger asChild>
                     <motion.div
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-80px" }}
-                      transition={{ duration: 0.6, delay: (idx % 3) * 0.1 }}
+                      viewport={{
+                        once: true,
+                        margin: "-80px",
+                      }}
+                      transition={{
+                        duration: 0.6,
+                        delay: (idx % 3) * 0.1,
+                      }}
                       className="h-full group cursor-pointer"
                       onClick={() => setActiveService(idx)}
                       data-testid={`service-card-${idx}`}
@@ -43,33 +96,61 @@ export default function Services() {
                           <div className="mb-6 p-4 bg-background/10 inline-block w-fit group-hover:bg-primary/20 transition-colors">
                             <Icon className="w-8 h-8 text-primary" />
                           </div>
-                          <h3 className="text-xl font-serif font-bold mb-4 text-white">{service.title}</h3>
-                          <p className="text-secondary-foreground/70 leading-relaxed flex-grow">{service.desc}</p>
+
+                          <h3 className="text-xl font-serif font-bold mb-4 text-white">
+                            {service.title}
+                          </h3>
+
+                          <p className="text-secondary-foreground/70 leading-relaxed flex-grow">
+                            {service.desc}
+                          </p>
+
                           <div className="mt-6 flex items-center text-primary text-sm font-bold uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity">
-                            View Details <ArrowRight className="w-4 h-4 ml-2" />
+                            View Details
+                            <ArrowRight className="w-4 h-4 ml-2" />
                           </div>
                         </CardContent>
                       </Card>
                     </motion.div>
                   </DialogTrigger>
+
+                  {/* Service details dialog */}
                   <DialogContent className="max-w-3xl p-0 overflow-hidden bg-card border-border rounded-none">
                     <div className="h-64 w-full relative">
-                      <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+                      <img
+                        src={service.image}
+                        alt={`${service.title} - Apex Strata Consulting`}
+                        className="w-full h-full object-cover"
+                      />
+
                       <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent"></div>
                     </div>
+
                     <div className="p-8 md:p-10 pt-0 relative z-10">
                       <DialogHeader>
-                        <DialogTitle className="text-3xl font-serif font-bold mb-4 text-foreground">{service.title}</DialogTitle>
-                        <DialogDescription className="text-lg text-muted-foreground mb-6">{service.desc}</DialogDescription>
+                        <DialogTitle className="text-3xl font-serif font-bold mb-4 text-foreground">
+                          {service.title}
+                        </DialogTitle>
+
+                        <DialogDescription className="text-lg text-muted-foreground mb-6">
+                          {service.desc}
+                        </DialogDescription>
                       </DialogHeader>
 
                       <div className="space-y-6">
                         <div>
-                          <h4 className="text-lg font-bold text-foreground mb-3 border-b border-border pb-2">What this includes</h4>
+                          <h4 className="text-lg font-bold text-foreground mb-3 border-b border-border pb-2">
+                            What this includes
+                          </h4>
+
                           <ul className="space-y-2">
                             {service.includes.map((item, i) => (
-                              <li key={i} className="flex items-start gap-2 text-muted-foreground">
+                              <li
+                                key={i}
+                                className="flex items-start gap-2 text-muted-foreground"
+                              >
                                 <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary shrink-0"></div>
+
                                 <span>{item}</span>
                               </li>
                             ))}
@@ -77,14 +158,25 @@ export default function Services() {
                         </div>
 
                         <div className="bg-muted/50 p-4 border border-border">
-                          <h4 className="text-sm font-bold text-foreground uppercase tracking-wider mb-1">Typical Engagement</h4>
-                          <p className="text-muted-foreground">{service.engagement}</p>
+                          <h4 className="text-sm font-bold text-foreground uppercase tracking-wider mb-1">
+                            Typical Engagement
+                          </h4>
+
+                          <p className="text-muted-foreground">
+                            {service.engagement}
+                          </p>
                         </div>
                       </div>
 
                       <DialogFooter className="mt-8">
-                        <Button asChild className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground h-12 rounded-none px-8" data-testid="modal-consult-btn">
-                          <Link href="/contact">Consult With Us</Link>
+                        <Button
+                          asChild
+                          className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground h-12 rounded-none px-8"
+                          data-testid="modal-consult-btn"
+                        >
+                          <Link href="/contact">
+                            Consult With Us
+                          </Link>
                         </Button>
                       </DialogFooter>
                     </div>
@@ -93,6 +185,31 @@ export default function Services() {
               );
             })}
           </div>
+
+          {/* Contact call to action */}
+          <div className="mt-20 pt-12 border-t border-secondary-foreground/10 text-center">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold text-white mb-4">
+              Need Geotechnical Support for Your Project?
+            </h2>
+
+            <p className="text-secondary-foreground/70 leading-relaxed max-w-2xl mx-auto mb-8">
+              Contact Apex Strata Consulting to discuss your mining or
+              civil engineering requirements. We can help identify
+              geotechnical challenges and develop practical,
+              site-specific engineering solutions.
+            </p>
+
+            <Button
+              asChild
+              className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 rounded-none px-8"
+            >
+              <Link href="/contact">
+                Discuss Your Project
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
+
         </div>
       </section>
     </div>
