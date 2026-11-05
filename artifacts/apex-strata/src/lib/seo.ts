@@ -13,9 +13,9 @@ export const PAGES = {
   },
   services: {
     path: "/services",
-    title: "Services",
+    title: "Geotechnical Engineering Services in Zimbabwe",
     description:
-      "Geotechnical investigations and core logging, ground control recommendations, numerical modelling, TSF and heap leach designs, audits and on-site training for mining operations.",
+      "Geotechnical engineering and mining consultancy in Zimbabwe: investigations, core logging, ground control, slope stability, numerical modelling and TSF reviews.",
   },
   projects: {
     path: "/projects",
