@@ -2,29 +2,61 @@
 
 Sign-in page: `/admin` (linked as "Staff login" in the site footer).
 
-## One-time setup (Replit)
+## How the pieces fit
 
-1. `pnpm install`
-2. `pnpm --filter @workspace/db run push`   (creates the new tables: admins, admin_sessions, projects, inquiries, inquiry_replies)
-3. `pnpm --filter @workspace/api-server run setup-owner -- you@company.com "Your Name"`
-   - Prompts for the password (hidden, min 12 characters). Creates the first **owner** and loads the 9 existing projects into the database.
-   - Safe to run again: it won't create a second owner or duplicate projects.
-4. Add the email secrets (below), then restart the API server.
-5. Sign in at `/admin`, open **Team** and add the other people. Each gets a one-time temporary password and must choose their own at first sign-in.
-
-## Secrets (Replit > Secrets). Needed only for sending replies and new-inquiry alerts
-
-| Name | Example | Notes |
+| Piece | Where it runs | What it does |
 |---|---|---|
-| SMTP_HOST | mail.apexstrataconsulting.co.zw | cPanel: Email Accounts > Connect Devices shows the "Outgoing Server" |
-| SMTP_PORT | 465 | 465 (SSL) or 587 (STARTTLS) |
-| SMTP_USER | info@apexstrataconsulting.co.zw | a real mailbox on the domain |
-| SMTP_PASS | (that mailbox's password) | |
-| SMTP_FROM | Apex Strata Consulting <info@apexstrataconsulting.co.zw> | optional, defaults to SMTP_USER |
-| SMTP_REPLY_TO | info@apexstrataconsulting.co.zw | optional, defaults to the From address |
+| Website (React) | Vercel | The public pages and the `/admin` screens |
+| API (`artifacts/api-server`, Express) | Railway | Contact form, projects, testimonials, portal login and inbox |
+| Database | Supabase (Postgres) | Admins, sessions, projects, inquiries, replies, testimonials |
 
-Replies are sent as "Apex Strata Consulting" from the company mailbox and signed as the company. No staff name or personal address appears on outgoing mail. Clients answer to the company address, so whoever handles that mailbox sees it (in cPanel webmail).
-Without these secrets the portal still works; replies are saved but marked "not delivered" and the dashboard shows a warning.
+The browser must see the API on the **same domain** as the site (the login cookie is `SameSite=Strict`, path `/api`), so Vercel forwards `/api/*` to Railway (step 6).
+
+## One-time setup
+
+**1. Supabase connection string.** In your Supabase project: *Connect* > *Session pooler* > copy the URI (host like `aws-0-xx.pooler.supabase.com`, port **5432**, user `postgres.<project-ref>`). Put your database password in place of `[YOUR-PASSWORD]`; if it contains characters such as `@ # / ?`, URL-encode them (`@` = `%40`, `#` = `%23`). Use the session pooler, not the direct host: the direct host is IPv6-only on Supabase's free plan, and Railway/Vercel are IPv4. This is `DATABASE_URL`. The code switches TLS on automatically for any non-local host, so you do not need `?sslmode=...`.
+
+**2. Create the tables** (needs a terminal: a laptop, or GitHub Codespaces from a phone browser):
+```
+pnpm install
+DATABASE_URL="<the Supabase URI>" pnpm --filter @workspace/db run push
+```
+
+**3. Lock the tables down.** Supabase exposes every table in the `public` schema through its own REST API. Turn row-level security on so nothing is readable that way (this API connects as the database owner, which is unaffected). Supabase > *SQL Editor* > run:
+```sql
+alter table admins enable row level security;
+alter table admin_sessions enable row level security;
+alter table projects enable row level security;
+alter table inquiries enable row level security;
+alter table inquiry_replies enable row level security;
+alter table testimonials enable row level security;
+```
+Run it again after any future `db push` that adds a table.
+
+**4. Create the first owner** (same terminal as step 2; the password is read from `ADMIN_PASSWORD`, min 12 characters):
+```
+DATABASE_URL="<the Supabase URI>" ADMIN_PASSWORD="<a long password>" pnpm --filter @workspace/api-server run setup-owner -- you@company.com "Your Name"
+```
+It creates the owner and loads the starting projects (the Bitumen, Kavango and Old Nic projects pinned). Safe to run again: it never creates a second owner or duplicates projects. Do not save the password in a file or in git.
+
+**5. Deploy the API to Railway.** New service from the GitHub repo. Build: `pnpm install --frozen-lockfile && pnpm --filter @workspace/api-server run build`. Start: `pnpm --filter @workspace/api-server run start`. Variables:
+
+| Name | Value |
+|---|---|
+| `DATABASE_URL` | the Supabase URI from step 1 |
+| `NODE_ENV` | `production` |
+| `TRUST_PROXY_HOPS` | `2` (Vercel + Railway). Use `1` if the site calls Railway directly |
+| `SMTP_HOST` | e.g. `mail.apexstrataconsulting.co.zw` (cPanel: Email Accounts > Connect Devices) |
+| `SMTP_PORT` | `465` (SSL) or `587` (STARTTLS) |
+| `SMTP_USER` | a real mailbox, e.g. `info@apexstrataconsulting.co.zw` |
+| `SMTP_PASS` | that mailbox's password |
+| `SMTP_FROM`, `SMTP_REPLY_TO` | optional; default to `SMTP_USER` |
+
+Railway sets `PORT` itself. Without the SMTP variables the portal still works, but replies are saved as "not delivered" and the dashboard shows a warning. Replies go out as "Apex Strata Consulting" from the company mailbox, with no staff name.
+
+**6. Point Vercel's `/api` at Railway.** In `vercel.json` (project root as configured in Vercel), add a rewrite for `/api/:path*` to `https://<your-railway-domain>/api/:path*`. Keep any existing rewrites; do not replace them.
+
+**7. Sign in** at `/admin` (also the "Staff login" link in the footer), open **Team** and add the other people. Each gets a one-time temporary password and must choose their own at first sign-in.
 
 ## How access works
 
@@ -44,4 +76,4 @@ Without these secrets the portal still works; replies are saved but marked "not 
 
 On **Projects**, the pin button next to each project keeps it at the top of the public Projects page, above everything unpinned. The arrows reorder projects within the pinned group and within the unpinned group. Currently pinned by default (fresh installs): the Bitumen World Mining, Kavango and Old Nic Mine projects.
 
-If the portal was already set up before this update, run `pnpm --filter @workspace/db run push` once (it adds a `pinned` column), then pin those projects from the portal. The seed only runs on an empty table.
+If the database was created before pinning existed, run the step 2 command again once (it adds a `pinned` column), then pin those projects from the portal. The seed only runs on an empty table.

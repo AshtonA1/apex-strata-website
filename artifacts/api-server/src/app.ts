@@ -8,8 +8,10 @@ import { logger } from "./lib/logger";
 
 const app: Express = express();
 
-// Behind the Replit proxy: trust one hop so req.ip is the real client and req.secure reflects https.
-app.set("trust proxy", 1);
+// How many proxies sit in front of this server (used to find the real visitor IP for rate limits).
+// 1 = a single host such as Railway directly; 2 = Vercel rewriting to Railway.
+const proxyHops = Number(process.env["TRUST_PROXY_HOPS"] ?? 1);
+app.set("trust proxy", Number.isInteger(proxyHops) && proxyHops >= 0 ? proxyHops : 1);
 app.disable("x-powered-by");
 
 app.use(
