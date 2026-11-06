@@ -1,33 +1,14 @@
 [
   {
-    "title": "Geotechnical Design for Five Open Pits",
-    "client": "Royal Family Mine (Podhill)",
-    "clients": [
-      "Royal Family Mine"
-    ],
-    "location": "Filabusi, Zimbabwe",
-    "status": "Completed",
-    "description": "Geotechnical design for a five-pit open pit development at Royal Family Mine."
-  },
-  {
     "title": "Open Pit Slope Design",
-    "client": "Alpha Minerals",
+    "client": "Bitumen World Mining",
     "clients": [
-      "Alpha Minerals"
+      "Bitumen World Mining"
     ],
-    "location": "Willies Luck, Zimbabwe",
+    "location": "Zimbabwe",
     "status": "Completed",
-    "description": "Slope design for an open pit operation, balancing stripping ratio against overall slope stability."
-  },
-  {
-    "title": "Minewide Underground Geotechnical Assessment",
-    "client": "Old Nic Mine (Retinue Stars Investments)",
-    "clients": [
-      "Old Nic Mine"
-    ],
-    "location": "Bulawayo, Zimbabwe",
-    "status": "Completed",
-    "description": "Comprehensive minewide assessment of underground workings, identifying stability hazards and ground support priorities."
+    "description": "Slope design and kinematic analysis for open pit development.",
+    "pinned": true
   },
   {
     "title": "Main Vertical Shaft Geotechnical Stability Analysis",
@@ -37,27 +18,8 @@
     ],
     "location": "Filabusi, Zimbabwe",
     "status": "Completed",
-    "description": "Stability analysis for the main vertical shaft, informing support design and operational risk controls."
-  },
-  {
-    "title": "Open Pit Slope Design",
-    "client": "Bitumen World Mining",
-    "clients": [
-      "Bitumen World Mining"
-    ],
-    "location": "Zimbabwe",
-    "status": "Completed",
-    "description": "Slope design and kinematic analysis for open pit development."
-  },
-  {
-    "title": "Open Pit Designs",
-    "client": "Unicha Gold Mine (Turnstone Resources & Sandfinder Investments)",
-    "clients": [
-      "Unicha Gold Mine"
-    ],
-    "location": "Zimbabwe",
-    "status": "Completed",
-    "description": "Open pit design covering bench geometry and overall slope angles for safe, productive extraction."
+    "description": "Stability analysis for the main vertical shaft, informing support design and operational risk controls.",
+    "pinned": true
   },
   {
     "title": "Tailings Storage Facility (TSF) Review",
@@ -67,7 +29,52 @@
     ],
     "location": "Filabusi, Zimbabwe",
     "status": "Completed",
-    "description": "Independent geotechnical review of TSF stability and seepage conditions against international standards."
+    "description": "Independent geotechnical review of TSF stability and seepage conditions against international standards.",
+    "pinned": true
+  },
+  {
+    "title": "Minewide Underground Geotechnical Assessment",
+    "client": "Old Nic Mine (Retinue Stars Investments)",
+    "clients": [
+      "Old Nic Mine"
+    ],
+    "location": "Bulawayo, Zimbabwe",
+    "status": "Completed",
+    "description": "Comprehensive minewide assessment of underground workings, identifying stability hazards and ground support priorities.",
+    "pinned": true
+  },
+  {
+    "title": "Geotechnical Design for Five Open Pits",
+    "client": "Royal Family Mine (Podhill)",
+    "clients": [
+      "Royal Family Mine"
+    ],
+    "location": "Filabusi, Zimbabwe",
+    "status": "Completed",
+    "description": "Geotechnical design for five open pits at Royal Family Mine.",
+    "pinned": false
+  },
+  {
+    "title": "Open Pit Slope Design",
+    "client": "Alpha Minerals",
+    "clients": [
+      "Alpha Minerals"
+    ],
+    "location": "Willies Luck, Zimbabwe",
+    "status": "Completed",
+    "description": "Slope design for an open pit operation, balancing stripping ratio against overall slope stability.",
+    "pinned": false
+  },
+  {
+    "title": "Open Pit Designs",
+    "client": "Unicha Gold Mine (Turnstone Resources & Sandfinder Investments)",
+    "clients": [
+      "Unicha Gold Mine"
+    ],
+    "location": "Zimbabwe",
+    "status": "Completed",
+    "description": "Open pit design covering bench geometry and overall slope angles for safe, productive extraction.",
+    "pinned": false
   },
   {
     "title": "Heap Leach Pad Geotechnical Designs",
@@ -83,7 +90,8 @@
     ],
     "location": "Zimbabwe",
     "status": "Completed",
-    "description": "Geotechnical designs for heap leach pads across multiple client operations."
+    "description": "Geotechnical designs for heap leach pads across multiple client operations.",
+    "pinned": false
   },
   {
     "title": "Back Analysis of Slope Failure",
@@ -93,7 +101,8 @@
     ],
     "location": "Zimbabwe",
     "status": "Completed",
-    "description": "Back analysis of a slope failure caused by tensile crack formation and subsidence, informing remedial design."
+    "description": "Back analysis of a slope failure caused by tensile crack formation and subsidence, informing remedial design.",
+    "pinned": false
   },
   {
     "title": "Ground Control Management Plan & Code of Practice",
@@ -103,6 +112,7 @@
     ],
     "location": "Zimbabwe",
     "status": "Completed",
-    "description": "Design of a Code of Practice and Ground Control Management Plan from the ground up."
+    "description": "Design of a Code of Practice and Ground Control Management Plan from the ground up.",
+    "pinned": false
   }
 ]

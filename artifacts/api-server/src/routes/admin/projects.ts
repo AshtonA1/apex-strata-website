@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import { z } from "zod/v4";
-import { asc, eq, sql } from "drizzle-orm";
+import { asc, desc, eq, sql } from "drizzle-orm";
 import { db, projectsTable, PROJECT_STATUSES, type Project } from "@workspace/db";
 import { fromError } from "zod-validation-error";
 
@@ -16,7 +16,7 @@ export function toPublicProject(p: Project) {
   };
 }
 
-const ordered = [asc(projectsTable.sortOrder), asc(projectsTable.id)] as const;
+const ordered = [desc(projectsTable.pinned), asc(projectsTable.sortOrder), asc(projectsTable.id)] as const;
 
 /** Public: what the website shows. */
 export const publicProjectsRouter: IRouter = Router();
@@ -42,7 +42,7 @@ const projectSchema = z.object({
   description: z.string().trim().min(1, "Description is required").max(3000),
 });
 
-const toAdminProject = (p: Project) => ({ ...toPublicProject(p), sortOrder: p.sortOrder, updatedAt: p.updatedAt });
+const toAdminProject = (p: Project) => ({ ...toPublicProject(p), pinned: p.pinned, sortOrder: p.sortOrder, updatedAt: p.updatedAt });
 
 router.get("/", async (_req, res) => {
   const rows = await db.select().from(projectsTable).orderBy(...ordered);
@@ -83,6 +83,26 @@ router.put("/:id", async (req, res) => {
   res.json(toAdminProject(row));
 });
 
+router.post("/:id/pin", async (req, res) => {
+  const id = Number(req.params["id"]);
+  const pinned = req.body?.pinned;
+  if (!Number.isInteger(id) || typeof pinned !== "boolean") {
+    res.status(400).json({ error: "Invalid request." });
+    return;
+  }
+  const [row] = await db
+    .update(projectsTable)
+    .set({ pinned, updatedBy: req.admin!.id, updatedAt: new Date() })
+    .where(eq(projectsTable.id, id))
+    .returning({ id: projectsTable.id });
+  if (!row) {
+    res.status(404).json({ error: "Project not found." });
+    return;
+  }
+  const rows = await db.select().from(projectsTable).orderBy(...ordered);
+  res.json(rows.map(toAdminProject));
+});
+
 router.post("/:id/move", async (req, res) => {
   const id = Number(req.params["id"]);
   const dir = req.body?.direction;
@@ -91,10 +111,11 @@ router.post("/:id/move", async (req, res) => {
     return;
   }
   await db.transaction(async (tx) => {
-    const rows = await tx.select({ id: projectsTable.id }).from(projectsTable).orderBy(...ordered);
+    const rows = await tx.select({ id: projectsTable.id, pinned: projectsTable.pinned }).from(projectsTable).orderBy(...ordered);
     const i = rows.findIndex((r) => r.id === id);
     const j = dir === "up" ? i - 1 : i + 1;
-    if (i < 0 || j < 0 || j >= rows.length) return;
+    // Pinned and unpinned projects are separate groups; moves stay inside a group.
+    if (i < 0 || j < 0 || j >= rows.length || rows[i]!.pinned !== rows[j]!.pinned) return;
     [rows[i], rows[j]] = [rows[j]!, rows[i]!];
     for (let k = 0; k < rows.length; k++) {
       await tx.update(projectsTable).set({ sortOrder: k }).where(eq(projectsTable.id, rows[k]!.id));

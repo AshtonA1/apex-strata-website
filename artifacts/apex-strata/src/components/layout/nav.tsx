@@ -39,11 +39,11 @@ export default function Nav() {
         }`}
       >
         <div className="container mx-auto px-4 md:px-8 h-full flex items-center justify-between">
-          <Link href="/" className="cursor-pointer z-50" data-testid="nav-logo" aria-label="Apex Strata home">
+          <Link href="/" className="cursor-pointer z-50" data-testid="nav-logo" aria-label="Apex Strata Consulting home">
             <Logo size="md" textClassName={solid ? "text-foreground" : "text-white"} />
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             {NAV_LINKS.map((item) => (
               <Link
                 key={item.path}
@@ -62,7 +62,7 @@ export default function Nav() {
           </div>
 
           <button
-            className="md:hidden text-foreground relative z-50 p-2"
+            className="lg:hidden text-foreground relative z-50 p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             data-testid="mobile-menu-btn"
           >
@@ -81,7 +81,7 @@ export default function Nav() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-background pt-24 px-6 md:hidden flex flex-col gap-6"
+            className="fixed inset-0 z-40 bg-background pt-24 px-6 lg:hidden flex flex-col gap-6"
           >
             {NAV_LINKS.map((item) => (
               <Link

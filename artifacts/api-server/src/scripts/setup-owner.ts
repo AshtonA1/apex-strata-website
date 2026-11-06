@@ -88,6 +88,7 @@ async function main() {
       location: string;
       status: ProjectStatus;
       description: string;
+      pinned?: boolean;
     }[];
     await db.insert(projectsTable).values(seed.map((p, i) => ({ ...p, sortOrder: i })));
     console.log(`Loaded ${seed.length} existing projects into the database.`);

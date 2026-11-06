@@ -63,6 +63,7 @@ export type AdminProject = {
   location: string;
   status: ProjectStatus;
   desc: string;
+  pinned: boolean;
   sortOrder: number;
   updatedAt: string;
 };

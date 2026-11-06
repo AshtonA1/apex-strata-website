@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowDown, ArrowUp, ExternalLink, MapPin, Pencil, Plus, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, ExternalLink, MapPin, Pencil, Pin, Plus, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,6 +50,11 @@ export default function ProjectsAdmin() {
     qc.invalidateQueries({ queryKey: ["summary"] });
   };
 
+  const pin = useMutation({
+    mutationFn: (v: { id: number; pinned: boolean }) => api<AdminProject[]>("POST", `/admin/projects/${v.id}/pin`, { pinned: v.pinned }),
+    onSuccess: (rows) => qc.setQueryData(["projects"], rows),
+    onError: (e) => setError(errMsg(e)),
+  });
   const move = useMutation({
     mutationFn: (v: { id: number; direction: "up" | "down" }) => api<AdminProject[]>("POST", `/admin/projects/${v.id}/move`, { direction: v.direction }),
     onSuccess: (data) => qc.setQueryData(["projects"], data),
@@ -101,6 +106,11 @@ export default function ProjectsAdmin() {
                 <Badge variant="outline" className={STATUS_STYLES[p.status]}>
                   {p.status}
                 </Badge>
+                {p.pinned && (
+                  <Badge variant="outline" className="border-primary/60 text-primary" data-testid={`pinned-badge-${p.id}`}>
+                    <Pin className="w-3 h-3 mr-1" /> Pinned
+                  </Badge>
+                )}
               </div>
               <p className="text-primary text-sm">{p.client}</p>
               <p className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1">
@@ -108,11 +118,22 @@ export default function ProjectsAdmin() {
               </p>
             </div>
             <div className="flex items-center gap-1 shrink-0">
-              <Button variant="ghost" size="icon" aria-label="Move up" disabled={i === 0 || move.isPending} onClick={() => move.mutate({ id: p.id, direction: "up" })}>
+              <Button variant="ghost" size="icon" aria-label="Move up" disabled={i === 0 || projects[i - 1]?.pinned !== p.pinned || move.isPending} onClick={() => move.mutate({ id: p.id, direction: "up" })}>
                 <ArrowUp />
               </Button>
-              <Button variant="ghost" size="icon" aria-label="Move down" disabled={i === projects.length - 1 || move.isPending} onClick={() => move.mutate({ id: p.id, direction: "down" })}>
+              <Button variant="ghost" size="icon" aria-label="Move down" disabled={i === projects.length - 1 || projects[i + 1]?.pinned !== p.pinned || move.isPending} onClick={() => move.mutate({ id: p.id, direction: "down" })}>
                 <ArrowDown />
+              </Button>
+              <Button
+                variant={p.pinned ? "default" : "outline"}
+                size="icon"
+                aria-label={p.pinned ? `Unpin ${p.title}` : `Pin ${p.title} to the top`}
+                title={p.pinned ? "Unpin" : "Pin to top"}
+                data-testid={`pin-${p.id}`}
+                disabled={pin.isPending}
+                onClick={() => pin.mutate({ id: p.id, pinned: !p.pinned })}
+              >
+                <Pin />
               </Button>
               <Button
                 variant="outline"

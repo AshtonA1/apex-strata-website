@@ -1,4 +1,4 @@
-import { pgTable, text, serial, timestamp, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, timestamp, integer, boolean } from "drizzle-orm/pg-core";
 import { adminsTable } from "./admins";
 
 export const PROJECT_STATUSES = ["Completed", "Ongoing", "Pending"] as const;
@@ -15,7 +15,9 @@ export const projectsTable = pgTable("projects", {
   location: text("location").notNull(),
   status: text("status").$type<ProjectStatus>().notNull().default("Completed"),
   description: text("description").notNull(),
-  // Lower number = shown first.
+  // Pinned projects are always shown above the rest (then by sortOrder).
+  pinned: boolean("pinned").notNull().default(false),
+  // Lower number = shown first (within pinned / unpinned groups).
   sortOrder: integer("sort_order").notNull().default(0),
   createdBy: integer("created_by").references(() => adminsTable.id, { onDelete: "set null" }),
   updatedBy: integer("updated_by").references(() => adminsTable.id, { onDelete: "set null" }),

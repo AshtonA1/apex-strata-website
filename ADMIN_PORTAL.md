@@ -39,3 +39,9 @@ Without these secrets the portal still works; replies are saved but marked "not 
 - Brute force: 5 wrong passwords locks that account for 15 minutes; 20 attempts per 15 min per IP; identical error for unknown email vs wrong password.
 - Contact form: honeypot field, 8 submissions/hour/IP, length limits.
 - Not included yet (recommended next): two-factor authentication (TOTP), audit log page, logo upload for new clients.
+
+## Pinning projects
+
+On **Projects**, the pin button next to each project keeps it at the top of the public Projects page, above everything unpinned. The arrows reorder projects within the pinned group and within the unpinned group. Currently pinned by default (fresh installs): the Bitumen World Mining, Kavango and Old Nic Mine projects.
+
+If the portal was already set up before this update, run `pnpm --filter @workspace/db run push` once (it adds a `pinned` column), then pin those projects from the portal. The seed only runs on an empty table.
